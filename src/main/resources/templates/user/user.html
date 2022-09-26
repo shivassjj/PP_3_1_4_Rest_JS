@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+</head>
+<body>
+<h1>Ваши данные</h1>
+<table border="1">
+    <tr>
+        <th>Имя пользователя</th>
+        <th>Пароль</th>
+    </tr>
+    <tr th:each="user : ${user}">
+        <td th:text="${user.getUsername()}"></td>
+        <td th:text="${user.getPassword()}"></td>
+    </tr>
+</table>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Выйти из аккаунта" />
+</form>
+</body>
+</html>
