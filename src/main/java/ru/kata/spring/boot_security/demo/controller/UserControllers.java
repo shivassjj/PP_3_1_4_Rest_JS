@@ -1,10 +1,10 @@
-package ru.kata.spring.boot_security.demo.controllers;
+package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import java.security.Principal;
 
@@ -12,15 +12,15 @@ import java.security.Principal;
 @RequestMapping("/user")
 public class UserControllers {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
-    public UserControllers(UserService userService) {
-        this.userService = userService;
+    public UserControllers(UserServiceImpl userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
     }
 
     @GetMapping()
     public String getUser(Principal principal, Model model) {
-        model.addAttribute("user", userService.findByUsername(principal.getName()));
+        model.addAttribute("user", userServiceImpl.findByUsername(principal.getName()));
         return "user/user";
     }
 }
