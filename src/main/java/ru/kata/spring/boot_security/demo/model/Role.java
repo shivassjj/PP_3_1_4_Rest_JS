@@ -61,4 +61,15 @@ public class Role implements GrantedAuthority {
     public String toString() {
         return name;
     }
+
+    public String getRoleAsString() {
+        String s = "";
+        if (name.contains("ROLE_ADMIN")) {
+            s = "ADMIN USER";
+        } else if (name.contains("ROLE_USER")) {
+            s = "USER";
+        }
+        return s;
+    }
+
 }

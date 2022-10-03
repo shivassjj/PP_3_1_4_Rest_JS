@@ -21,6 +21,14 @@ public class User implements UserDetails {
 
     private String password;
 
+    private String firstName;
+
+    private String lastName;
+
+    private byte age;
+
+    private String email;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -31,9 +39,13 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String password, List<Role> roles) {
+    public User(String username, String password, String firstName, String lastName, byte age, String email, List<Role> roles) {
         this.username = username;
         this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
         this.roles = roles;
     }
 
@@ -61,6 +73,38 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public byte getAge() {
+        return age;
+    }
+
+    public void setAge(byte age) {
+        this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<Role> getRoles() {
@@ -101,12 +145,12 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
+        return age == user.age && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(roles, user.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, password, roles);
+        return Objects.hash(username, password, firstName, lastName, age, email, roles);
     }
 
     @Override
@@ -115,7 +159,24 @@ public class User implements UserDetails {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
                 ", roles=" + roles +
                 '}';
+    }
+
+    public String getRolesString() {
+        StringBuilder sb = new StringBuilder();
+        for (Role role : roles) {
+            if (role.getName().contains("ROLE_ADMIN")) {
+                sb.append("ADMIN USER");
+            } else if (role.getName().contains("ROLE_USER")) {
+                sb.append("USER");
+            }
+            sb.append(" ");
+        }
+        return sb.toString();
     }
 }

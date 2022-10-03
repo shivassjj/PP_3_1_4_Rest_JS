@@ -38,12 +38,15 @@ public class UserServiceImpl implements UserService{
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Пользователь не найден"));
     }
 
-
     @Transactional
     public void updateUser(Long id, User user) {
         User userFromDb = findByIdUsers(id);
-        userFromDb.setUsername(user.getUsername());
+        userFromDb.setFirstName(user.getFirstName());
+        userFromDb.setLastName(user.getLastName());
+        userFromDb.setAge(user.getAge());
+        userFromDb.setEmail(user.getEmail());
         userFromDb.setPassword(user.getPassword());
+        userFromDb.setRoles(user.getRoles());
         userRepository.save(userFromDb);
     }
 

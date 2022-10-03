@@ -8,12 +8,20 @@
 <h1>Ваши данные</h1>
 <table border="1">
     <tr>
-        <th>Имя пользователя</th>
-        <th>Пароль</th>
+        <th>ID</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Role</th>
     </tr>
     <tr th:each="user : ${user}">
-        <td th:text="${user.getUsername()}"></td>
-        <td th:text="${user.getPassword()}"></td>
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getFirstName()}"></td>
+        <td th:text="${user.getLastName()}"></td>
+        <td th:text="${user.getAge()}"></td>
+        <td th:text="${user.getEmail()}"></td>
+        <td th:text="${user.getRoles()}"></td>
     </tr>
 </table>
 <form th:action="@{/logout}" method="post">
