@@ -9,5 +9,7 @@ public interface RoleService {
 
     Role findRoleByName(String name);
 
+    List<Role> findAllRoles();
+
     List<? extends GrantedAuthority> mapRolesToAuthorities(List<Role> roles);
 }

@@ -4,21 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <title>Список пользователей</title>
+    <title>Admin panel</title>
 </head>
 <body>
 <div class="container-fluid">
     <div class="row bg-dark align-items-center">
         <div class="col-11">
                     <span class="nav navbar-text text-white fs-4">
-                        <strong><th:block th:text="${logUser.getEmail}"></th:block></strong>
+                        <strong><th:block th:text="${logUser.getEmail()}"></th:block></strong>
                         &nbsp;<th:block th:text="'with roles: '+ ${logUser.getRolesString()}"></th:block>
                     </span>
         </div>
         <div class="col-1">
             <ul class="nav navbar-nav float-end">
                 <li class="nav-item">
-                    <a class="nav-link active fs-5 text-white-50" href="/logout">Logout</a>
+                    <form th:action="@{/logout}" th:method="post">
+                        <input type="submit" value="Logout" class="bg-dark form-control-plaintext text-white-50 h5">
+                    </form>
                 </li>
             </ul>
         </div>

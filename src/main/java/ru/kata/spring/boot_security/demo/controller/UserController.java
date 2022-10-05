@@ -10,17 +10,17 @@ import java.security.Principal;
 
 @Controller
 @RequestMapping("/user")
-public class UserControllers {
+public class UserController {
 
     private final UserServiceImpl userServiceImpl;
 
-    public UserControllers(UserServiceImpl userServiceImpl) {
+    public UserController(UserServiceImpl userServiceImpl) {
         this.userServiceImpl = userServiceImpl;
     }
 
     @GetMapping()
     public String getUser(Principal principal, Model model) {
-        model.addAttribute("user", userServiceImpl.findByUsername(principal.getName()));
+        model.addAttribute("logUser", userServiceImpl.findByEmail(principal.getName()));
         return "user/user";
     }
 }

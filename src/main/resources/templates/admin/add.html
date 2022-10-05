@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <title>Добавление нового пользователя</title>
+    <title>Admin panel  </title>
 </head>
 <body>
 <div class="container-fluid">
@@ -18,7 +18,9 @@
         <div class="col-1">
             <ul class="nav navbar-nav float-end">
                 <li class="nav-item">
-                    <a class="nav-link active fs-5 text-white-50" href="/logout">Logout</a>
+                    <form th:action="@{/logout}" th:method="post">
+                        <input type="submit" value="Logout" class="bg-dark form-control-plaintext text-white-50 h5">
+                    </form>
                 </li>
             </ul>
         </div>
@@ -65,12 +67,17 @@
                                 <input class="form-control w-25" type="text" th:field="*{email}" id="email"/>
                                 <br/>
                                 <label class="form-label h6" for="password">Password: </label>
-                                <input class="form-control w-25" type="text" th:field="*{password}" id="password"/>
+                                <input class="form-control w-25" type="password" th:field="*{password}" id="password"/>
                                 <br/>
-                                <label class="form-label h6" for="role">Role: </label>
-                                <input class="form-control w-25" type="text" th:field="*{roles}" id="role"/>
+                                <label class="form-label h6">Role: </label>
+                                <select class="form-control w-25" multiple size="2" id="roles" name="roles" th:field="*{roles}">
+                                    <option th:each="role : ${roles}"
+                                            th:value="${{role}}"
+                                            th:text="${role.getRoleAsString()}">
+                                    </option>
+                                </select>
                                 <br/>
-                                <button type="button" class="btn btn-success btn-lg">Add new user</button>
+                                <input type="submit" value="Add new user" class="btn btn-success btn-lg">
                             </form>
                         </table>
                     </td>

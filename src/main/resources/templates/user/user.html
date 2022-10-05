@@ -2,30 +2,75 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Личный кабинет</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <title>User page</title>
 </head>
 <body>
-<h1>Ваши данные</h1>
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Age</th>
-        <th>Email</th>
-        <th>Role</th>
-    </tr>
-    <tr th:each="user : ${user}">
-        <td th:text="${user.getId()}"></td>
-        <td th:text="${user.getFirstName()}"></td>
-        <td th:text="${user.getLastName()}"></td>
-        <td th:text="${user.getAge()}"></td>
-        <td th:text="${user.getEmail()}"></td>
-        <td th:text="${user.getRoles()}"></td>
-    </tr>
-</table>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Выйти из аккаунта" />
-</form>
+<div class="container-fluid">
+    <div class="row bg-dark align-items-center">
+        <div class="col-11">
+                    <span class="nav navbar-text text-white fs-4">
+                        <strong><th:block th:text="${logUser.getEmail()}"></th:block></strong>
+                        &nbsp;<th:block th:text="'with roles: '+ ${logUser.getRolesString()}"></th:block>
+                    </span>
+        </div>
+        <div class="col-1">
+            <ul class="nav navbar-nav float-end">
+                <li class="nav-item">
+                    <form th:action="@{/logout}" th:method="post">
+                        <input type="submit" value="Logout" class="bg-dark form-control-plaintext text-white-50 h5">
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+<div class="row">
+<div class="col-md-2 bg-white vh-100 p-0"><br>
+    <ul class="nav flex-column nav-pills fs-5">
+        <li class="nav-item">
+            <a class="nav-link active" href="/user">User</a>
+        </li>
+    </ul>
+</div>
+<div class="col-md-10 bg-light vh-100"><br>
+    <h1>
+        User information-page
+    </h1>
+<div>
+    <table class="table table-striped table-bordered">
+        <tbody>
+        <tr>
+            <th class="h4 px-4">About user</th>
+        </tr>
+        <tr>
+            <td class="bg-white p-4">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${logUser}">
+                        <td th:text="${logUser.getId()}"></td>
+                        <td th:text="${logUser.getFirstName()}"></td>
+                        <td th:text="${logUser.getLastName()}"></td>
+                        <td th:text="${logUser.getAge()}"></td>
+                        <td th:text="${logUser.getEmail()}"></td>
+                        <td th:text="${logUser.getRolesString()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

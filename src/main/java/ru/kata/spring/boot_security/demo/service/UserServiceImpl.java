@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.User;
@@ -21,8 +22,8 @@ public class UserServiceImpl implements UserService{
         this.roleService = roleService;
     }
 
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     public List<User> findAllUsers() {
@@ -31,6 +32,7 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     public void saveUser(User user) {
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
     }
 
@@ -45,7 +47,7 @@ public class UserServiceImpl implements UserService{
         userFromDb.setLastName(user.getLastName());
         userFromDb.setAge(user.getAge());
         userFromDb.setEmail(user.getEmail());
-        userFromDb.setPassword(user.getPassword());
+        userFromDb.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userFromDb.setRoles(user.getRoles());
         userRepository.save(userFromDb);
     }
@@ -57,12 +59,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = findByEmail(email);
         if(user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found", username));
+            throw new UsernameNotFoundException(String.format("User '%s' not found", email));
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                 roleService.mapRolesToAuthorities(user.getRoles()));
     }
 
