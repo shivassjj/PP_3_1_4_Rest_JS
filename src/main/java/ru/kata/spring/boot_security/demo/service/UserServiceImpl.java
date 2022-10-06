@@ -42,14 +42,8 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     public void updateUser(Long id, User user) {
-        User userFromDb = findByIdUsers(id);
-        userFromDb.setFirstName(user.getFirstName());
-        userFromDb.setLastName(user.getLastName());
-        userFromDb.setAge(user.getAge());
-        userFromDb.setEmail(user.getEmail());
-        userFromDb.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        userFromDb.setRoles(user.getRoles());
-        userRepository.save(userFromDb);
+        user.setId(id);
+        userRepository.save(user);
     }
 
     @Transactional

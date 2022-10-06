@@ -62,7 +62,7 @@ public class AdminController {
 //        return "redirect:/admin";
 //    }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
         userServiceImpl.updateUser(id, user);
         return "redirect:/admin";

@@ -12,7 +12,8 @@
         <div class="col-11">
                     <span class="nav navbar-text text-white fs-4">
                         <strong><th:block th:text="${logUser.getEmail()}"></th:block></strong>
-                        &nbsp;<th:block th:text="'with roles: '+ ${logUser.getRolesString()}"></th:block>
+                        &nbsp;<nobr>with roles:</nobr>
+                        &nbsp;<th:block th:each="role : ${logUser.getRolesString()}" th:text="${role}"></th:block>
                     </span>
         </div>
         <div class="col-1">
@@ -113,8 +114,17 @@
                                                     <input type="text" class="form-control" id="password-user-for-edit" th:value="*{password}" th:name="password">
                                                     <br/>
                                                     <label for="role-user-for-edit" class="form-label"><strong>Role</strong></label>
-                                                    <select class="form-control" multiple size="2" id="role-user-for-edit" th:value="*{roles}" th:name="roles">
-                                                        <option th:each="role : ${roles}" th:value="${role}" th:text="${role.getRoleAsString()}">
+                                                    <select multiple
+                                                            class="form-control form-control-sm mb-3"
+                                                            id="role-user-for-edit"
+                                                            name="roles"
+                                                            size="2" required placeholder="Disabled input">
+                                                        <option th:each="role: ${roles}"
+                                                                th:value="${role.getId()}"
+                                                                th:selected="${user.getRoles()}">
+                                                            <th:block
+                                                                    th:text="${role.getRoleAsString()}">
+                                                            </th:block>
                                                         </option>
                                                     </select>
                                             </div>
@@ -162,8 +172,17 @@
                                                     <input type="text" class="form-control" id="password-user-for-delete" th:value="*{password}" th:name="password" readonly>
                                                     <br/>
                                                     <label for="role-user-for-delete" class="form-label"><strong>Role</strong></label>
-                                                    <select class="form-control" multiple size="2" id="role-user-for-delete" th:value="*{roles}" th:name="roles" readonly>
-                                                        <option th:each="role : ${roles}" th:value="${role}" th:text="${role.getRoleAsString()}">
+                                                    <select multiple
+                                                            class="form-control form-control-sm mb-3"
+                                                            id="role-user-for-delete"
+                                                            name="roles"
+                                                            size="2" required placeholder="Disabled input">
+                                                        <option th:each="role: ${roles}"
+                                                                th:value="${role.getId()}"
+                                                                th:selected="${user.getRoles()}">
+                                                            <th:block
+                                                                    th:text="${role.getRoleAsString()}">
+                                                            </th:block>
                                                         </option>
                                                     </select>
                                                 </div>
