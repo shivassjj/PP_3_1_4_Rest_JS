@@ -26,6 +26,7 @@ public class AdminController {
     public String getUser(Principal principal, Model model) {
         model.addAttribute("users", userServiceImpl.findAllUsers());
         model.addAttribute("logUser", userServiceImpl.findByEmail(principal.getName()));
+        model.addAttribute("roles", roleService.findAllRoles());
         return "admin/list";
     }
 
@@ -49,13 +50,19 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/edit/{id}")
-    public String getUserFormEdit(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("user", userServiceImpl.findByIdUsers(id));
-        return "admin/edit";
-    }
+//    @GetMapping("/edit/{id}")
+//    public String getUserFormEdit(Model model, @PathVariable("id") Long id) {
+//        model.addAttribute("user", userServiceImpl.findByIdUsers(id));
+//        return "admin/edit";
+//    }
 
-    @PatchMapping("/{id}")
+//    @PostMapping("/{id}")
+//    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
+//        userServiceImpl.updateUser(id, user);
+//        return "redirect:/admin";
+//    }
+
+    @PutMapping("{id}")
     public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
         userServiceImpl.updateUser(id, user);
         return "redirect:/admin";
