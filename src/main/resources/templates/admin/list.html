@@ -71,7 +71,7 @@
                             <th>Delete</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="table">
                         <tr th:each="user : ${users}">
                             <td scope="row" th:text="${user.getId()}"></td>
                             <td th:text="${user.getFirstName()}"></td>

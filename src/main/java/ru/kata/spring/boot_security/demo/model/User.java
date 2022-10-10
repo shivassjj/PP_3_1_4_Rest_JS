@@ -133,6 +133,19 @@ public class User implements UserDetails {
         return true;
     }
 
+    public String getRolesString() {
+        StringBuilder sb = new StringBuilder();
+        for (Role role : roles) {
+            if (role.getName().contains("ROLE_ADMIN")) {
+                sb.append("ADMIN USER");
+            } else if (role.getName().contains("ROLE_USER")) {
+                sb.append("USER");
+            }
+            sb.append(" ");
+        }
+        return sb.toString();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

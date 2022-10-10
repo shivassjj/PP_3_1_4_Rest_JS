@@ -44,6 +44,10 @@ public class Role implements GrantedAuthority {
         return getName();
     }
 
+    public String getStringRole() {
+        return name.substring(5);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,14 +66,5 @@ public class Role implements GrantedAuthority {
         return name;
     }
 
-    public String getRoleAsString() {
-        String s = "";
-        if (name.contains("ROLE_ADMIN")) {
-            s = "ADMIN USER";
-        } else if (name.contains("ROLE_USER")) {
-            s = "USER";
-        }
-        return s;
-    }
 
 }

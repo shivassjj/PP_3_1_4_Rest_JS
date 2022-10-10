@@ -22,43 +22,39 @@ public class UserServiceImpl implements UserService{
         this.roleService = roleService;
     }
 
+    @Override
+    @Transactional
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
+    @Override
+    @Transactional
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }
 
+    @Override
     @Transactional
     public void saveUser(User user) {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
     }
 
+    @Override
+    @Transactional
     public User findByIdUsers(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Пользователь не найден"));
     }
 
-//    @Transactional
-//    public void updateUser(Long id, User user) {
-//        User userFromDb = findByIdUsers(id);
-//        userFromDb.setFirstName(user.getFirstName());
-//        userFromDb.setLastName(user.getLastName());
-//        userFromDb.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-//        userFromDb.setAge(user.getAge());
-//        userFromDb.setEmail(user.getEmail());
-//        userFromDb.setRoles(user.getRoles());
-//        userRepository.save(userFromDb);
-//    }
-
+    @Override
     @Transactional
     public void updateUser(Long id, User user) {
         user.setId(id);
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         userRepository.save(user);
     }
 
+    @Override
     @Transactional
     public void deleteByIdUsers(Long id) {
         userRepository.deleteById(id);
