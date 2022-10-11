@@ -2,21 +2,23 @@ package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.model.Role;
+import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleServiceImpl;
-import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class AdminController {
+public class AdminRestController {
 
     private final UserServiceImpl userServiceImpl;
 
     private final RoleServiceImpl roleService;
 
-    public AdminController(UserServiceImpl userServiceImpl, RoleServiceImpl roleService) {
+    public AdminRestController(UserServiceImpl userServiceImpl, RoleServiceImpl roleService) {
         this.userServiceImpl = userServiceImpl;
         this.roleService = roleService;
     }
@@ -39,6 +41,11 @@ public class AdminController {
     @PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         userServiceImpl.saveUser(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/users/auth")
+    public ResponseEntity <User> authUser(@AuthenticationPrincipal User user) {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
