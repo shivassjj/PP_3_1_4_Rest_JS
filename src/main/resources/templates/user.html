@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>User page</title>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+    <span class="navbar-brand mb-0">
+        <strong><a th:text="${user.getEmail()}">...</a></strong>
+        <span class="text-start">with roles:
+            <a th:each="role : ${user.getRoles()}" th:text="${role.getStringRole() + ' '}"></a>
+        </span>
+    </span>
+  <ul class="navbar-nav px-4">
+    <div class="nav-item text-nowrap">
+      <a class="nav-link" href="/login">Logout</a>
+    </div>
+  </ul>
+</nav>
+
+<div class="container-fluid bg-light">
+  <div class="row">
+    <div class="col-2 vh-100 bg-white mt-3 p-0">
+      <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <ul class="nav flex-column">
+          <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+            <a href="#" class="nav-link  placeholder ms-0 me-0 w-100 text start"
+               th:href="@{/admin}">Admin</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link active ms-0 me-0 w-100 text start"
+               th:href="@{/user}">User</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col mt-3 ml-3">
+      <div class="tab-content">
+        <h1>User information-page</h1>
+        <header class="p-3 table-header rounded-top border"><h4>About user</h4></header>
+        <div class="p-4 bg-white border border-top-0 rounded-bottom">
+          <table class="table table-striped" id="oneUser">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Age</th>
+              <th>Email</th>
+              <th>Role</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="../static/user.js"></script>
+</body>
+</html>

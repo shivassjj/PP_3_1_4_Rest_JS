@@ -30,7 +30,7 @@ public class AdminRestController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<User>> showAllUsers() {
         return new ResponseEntity<>(userServiceImpl.findAllUsers(), HttpStatus.OK);
     }
 
@@ -40,24 +40,24 @@ public class AdminRestController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> addNew(@RequestBody User user) {
         userServiceImpl.saveUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/users/auth")
-    public ResponseEntity <User> authUser(@AuthenticationPrincipal User user) {
+    @GetMapping("/users/current_user")
+    public ResponseEntity <User> showCurrentUser(@AuthenticationPrincipal User user) {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> editUser(@RequestBody User user, @PathVariable Long id) {
+    public ResponseEntity<User> update(@RequestBody User user, @PathVariable Long id) {
         userServiceImpl.updateUser(id, user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<Long> deleteUser(@PathVariable("id") Long id) {
+    public ResponseEntity<Long> delete(@PathVariable("id") Long id) {
         userServiceImpl.deleteByIdUsers(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
