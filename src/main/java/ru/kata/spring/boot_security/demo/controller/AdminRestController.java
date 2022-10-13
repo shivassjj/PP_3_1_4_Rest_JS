@@ -40,7 +40,7 @@ public class AdminRestController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> addNew(@RequestBody User user) {
+    public ResponseEntity<User> addNewUser(@RequestBody User user) {
         userServiceImpl.saveUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

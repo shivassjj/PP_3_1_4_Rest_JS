@@ -19,7 +19,7 @@ public class UserController {
     }
 
     @GetMapping
-    public String show(Principal principal, Model model) {
+    public String getUserInfo(Principal principal, Model model) {
         //principal - сжатая информация о текущем пользователе
         model.addAttribute("user", userService.findByEmail(principal.getName()));
         return "user";
